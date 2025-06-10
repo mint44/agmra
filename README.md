@@ -6,3 +6,12 @@ Instruction
 3. src contains only core code to gmra.
 4. experiments contains code to perform experiments
 5. logging contains loggings, graph, tensorboards, etc.
+
+Packages to install
+1. tensorflow 
+2. pytorch
+3. torchvision
+4. scikit-learn
+5. tqdm
+6. cmake (> 3.0)
+7. matplotlib
