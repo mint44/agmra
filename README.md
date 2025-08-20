@@ -15,3 +15,7 @@ Packages to install
 5. tqdm
 6. cmake (> 3.0)
 7. matplotlib
+8. python-graphviz
+
+To change datasets symlink
+ln -sfn /a/new/path datasets

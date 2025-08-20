@@ -515,6 +515,7 @@ class DyadicTree:
         
         leafs = self.query_leaf(X)
         leafs_jk = [(leaf.node_j, leaf.node_k) for leaf in leafs]
+        logging.debug(f"Leaf nodes queried: {leafs_jk}")
         
         logging.debug(f"Found {len(leafs)} leaf nodes, levels range: j={min(jk[0] for jk in leafs_jk)} to j={max(jk[0] for jk in leafs_jk)}")
         
@@ -525,8 +526,10 @@ class DyadicTree:
                 logging.debug(f"Processing point {idx+1}/{len(leafs)}, leaf at (j={leaf.node_j}, k={leaf.node_k})")
             
             x = X[idx].reshape(1, -1)  #  a row
-            pjx = leaf.basis @ (x.T-leaf.center) 
-            qjx = leaf.wav_basis @ leaf.basis.T @ pjx
+            pjx = leaf.basis @ (x.T-leaf.center) # pjx is the projection of x onto the leaf's basis
+            logging.debug(f"Point {idx}: pjx shape: {pjx.shape}, leaf wave basis shape: {leaf.wav_basis.shape}, leaf center shape: {leaf.center.shape}, leaf basis shape: {leaf.basis.shape}")
+            logging.debug(f"Wavelet basis: {leaf.wav_basis}")
+            qjx = leaf.wav_basis @ leaf.basis.T @ pjx # qjx is the wavelet coefficients at the leaf
             # log qjx
             logging.debug(f"qjx: {qjx}")
 
@@ -556,6 +559,7 @@ class DyadicTree:
             logging.debug(f"***")
         
         logging.debug("Forward GMRA wavelet transform completed")
+        logging.debug(f"Total coefficients shape: {np.hstack(Qjx).shape}")
         return Qjx, leafs_jk
 
     def igwt_batch(self, Y, leaves_j_k, shape):

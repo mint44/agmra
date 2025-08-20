@@ -1,0 +1,14 @@
+name: gmra
+channels:
+  - defaults
+dependencies:
+  - tensorflow
+  - cmake
+  - pytorch
+  - tqdm
+  - scikit-learn
+  - ipykernel
+  - matplotlib
+  - torchvision
+  - python-graphviz
+prefix: /scratch/lmnt/miniconda3/envs/gmra
